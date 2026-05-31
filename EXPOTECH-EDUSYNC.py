@@ -1240,27 +1240,35 @@ while True:
                                                 print (f"A média final é:", media)
                                                 print('                                 ')
                                                 print('Coloque a Média para alterar a nota ')
-                                                nota_valor= float(input('Nota: '))
+                                                nota_valor= input('Nota: ')
                                                 if nota_valor == '':
                                                     print('Nenhuma inserção de dados pode ficar vázio')
                                                     input('Pressione enter para voltar ao menu de opções...')
+                                                elif not nota_valor.replace('.','',1).isdigit():
+                                                    print('A Nota deve conter apenas números (1 a 10)')
+                                                    input('Pressione enter para voltar ao menu...')
                                                 else:
-                                                    up = 'update nota set nota_valor = %s  where nota_rra = %s'
-                                                    valores = (nota_valor, nota_rra)
-                                                    cursor.execute(up, valores)
-                                                    conexao.commit()
-                                                    print('                                 ')
-                                                    print(f'Nota do Aluno',nota_valor,'Alterado/Adicionada com sucesso!')
-                                                    print('                                 ')
-                                                    print('Coloque o valor da frequência para: ')
-                                                    nota_frequencia= input('Valor: ')
-                                                    up = 'update nota set nota_frequencia = %s  where nota_rra = %s'
-                                                    valores = (nota_frequencia, nota_rra)
-                                                    cursor.execute(up, valores)
-                                                    conexao.commit()
-                                                    print(f'Frequência',nota_frequencia,'Alterado/Adicionada com sucesso!')
-                                                    print('                                 ')
-                                                    input('Pressione enter para voltar ao menu de opções...')
+                                                    nota_valor = float(nota_valor)
+                                                    if 0<= nota_valor <=10:
+                                                        up = 'update nota set nota_valor = %s  where nota_rra = %s'
+                                                        valores = (nota_valor, nota_rra)
+                                                        cursor.execute(up, valores)
+                                                        conexao.commit()
+                                                        print('                                 ')
+                                                        print(f'Nota do Aluno',nota_valor,'Alterado/Adicionada com sucesso!')
+                                                        print('                                 ')
+                                                        print('Coloque o valor da frequência para: ')
+                                                        nota_frequencia= input('Valor: ')
+                                                        up = 'update nota set nota_frequencia = %s  where nota_rra = %s'
+                                                        valores = (nota_frequencia, nota_rra)
+                                                        cursor.execute(up, valores)
+                                                        conexao.commit()
+                                                        print(f'Frequência',nota_frequencia,'Alterado/Adicionada com sucesso!')
+                                                        print('                                 ')
+                                                        input('Pressione enter para voltar ao menu de opções...')
+                                                    else:
+                                                        print('Nota deve estar entre 0 e 10')
+                                                        input('Pressione enter para voltar ao menu de opções...')
                                             else:
                                                 print('Nota deve estar entre 0 e 10')
                                                 print('Frequência deve estar entre 0 a 100')
