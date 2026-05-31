@@ -28,3 +28,25 @@ pip install tabulate
 ## Observações
 
 O sistema utiliza o módulo `getpass` para ocultar a digitação de senhas durante o login, proporcionando maior segurança ao usuário. Esse módulo faz parte da biblioteca padrão do Python e normalmente não requer instalação adicional.
+
+## Credenciais de Teste
+
+Para facilitar a avaliação do sistema, utilize as seguintes credenciais:
+
+### Gestão
+Usuário: BeatrizLi
+Senha: Beatriz2025
+
+### Professor
+Usuário: FernandaOli
+Senha: fernanda2007
+
+### Aluno
+RA: 2026003
+Senha: enzo2009
+
+### Observação:
+
+Todas as credenciais e informações presentes no sistema são fictícias e foram criadas exclusivamente para fins acadêmicos e de demonstração.
+
+Além das contas apresentadas acima, o banco de dados contém outros usuários e registros fictícios. Caso deseje explorar diferentes acessos e funcionalidades do sistema, é possível consultar as demais credenciais diretamente no banco de dados e realizar o login com elas.
