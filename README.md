@@ -34,15 +34,15 @@ O sistema utiliza o módulo `getpass` para ocultar a digitação de senhas duran
 Para facilitar a avaliação do sistema, utilize as seguintes credenciais:
 
 ### Gestão
-Usuário: BeatrizLi
+Usuário: BeatrizLi /
 Senha: Beatriz2025
 
 ### Professor
-Usuário: FernandaOli
+Usuário: FernandaOli /
 Senha: fernanda2007
 
 ### Aluno
-RA: 2026003
+RA: 2026003 /
 Senha: enzo2009
 
 ### Observação:
