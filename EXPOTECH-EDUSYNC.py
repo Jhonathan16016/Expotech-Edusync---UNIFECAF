@@ -1,6 +1,7 @@
 import mysql.connector
 import getpass
 import tabulate
+import os
 
 conexao = mysql.connector.connect(
     host='localhost',
@@ -12,9 +13,9 @@ cursor= conexao.cursor()
 
 
 while True:
-    print('============================================')
-    print('Sistema de Gestão e Consulta Escolar Edusync')
-    print('============================================')
+    print('='*60)
+    print('📚 Sistema de Gestão e Consulta Escolar Edusync 📚'.center(60))
+    print('='*60)
     print('                                 ')
     print('1 - Acessar Gestão')
     print('2 - Acessar Professor')
@@ -22,25 +23,33 @@ while True:
     print('4-  Sair')
     opcao = input('Selecione uma opção: ')
     if opcao == '1':
+        os.system('cls' if os.name == 'nt' else 'clear')
         print('                                 ')
-        print('----Sistema da Gestão----')
-        print('                                 ')
-        usu=input('Digite seu usuário: ').strip()
-        senha=getpass.getpass('Digite sua senha: ').strip()
+        print('='*60)
+        print('📚 Sistema da Gestão 📚'.center(60))
+        print('='*60)
+        usu=input('👤 Digite seu usuário: ').strip()
+        senha=getpass.getpass('🔒 Digite sua senha: ').strip()
         comando= 'select * from gestao where gestao_usu = %s and gestao_senha = %s'
         if usu == '' or senha == '':
             print('Nenhuma inserção de dados pode ficar vázio')
             input('Pressione enter para voltar ao menu de opções...')
+            os.system('cls' if os.name == 'nt' else 'clear')
         else:
             cursor.execute(comando, (usu, senha))
 
             resultado = cursor.fetchone()
             if resultado:
                 while True:
-                    print('Acesso Concedido')
-                    print('========================')
-                    print('  Selecione uma Opção  ')
-                    print('========================')
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    largura = os.get_terminal_size().columns
+                    print('='*largura)
+                    print('                                 ')
+                    print('Acesso Concedido✅')
+                    print('                                 ')
+                    print('='*60)
+                    print('Selecione uma Opção'.center(60))
+                    print('='*60)
                     print('                                 ')
                     print('--OPÇÕES GESTÃO--')
                     print('1-Consultar Membros da Gestão')
@@ -77,7 +86,11 @@ while True:
                     print('                                 ')
                     op= input('Opção: ')
                     if op == '1':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute("SELECT * FROM gestao;")
                         resultados = cursor.fetchall()
                         cabecalhos = ('ID', 'NOME', 'USUÁRIO', 'SENHA', 'EMAIL', 'CARGO', 'STATUS')
@@ -85,7 +98,12 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '2':
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('--Adicionar Membro da Gestão--')
                         print('                                 ')
                         gestao_nome = input('Entre com o Nome do Membro:').strip()
@@ -97,6 +115,7 @@ while True:
                         if gestao_nome == '' or gestao_usu == '' or gestao_senha == '' or gestao_email == '' or gestao_cargo == '' or gestao_status == '':
                             print('Nenhuma inserção de dados pode ficar vázio')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         else:    
                             comando = 'insert into gestao (gestao_nome, gestao_usu, gestao_senha, gestao_email, gestao_cargo, gestao_status ) values (%s, %s, %s, %s, %s, %s)'
                             valores = (gestao_nome, gestao_usu, gestao_senha, gestao_email, gestao_cargo, gestao_status)
@@ -106,8 +125,13 @@ while True:
                             print(f'Novo Membro',gestao_nome,'inserido com sucesso!')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op =='3':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Membro da Gestão--')
                         print('                                 ')
                         cursor.execute("SELECT * FROM gestao;")
@@ -145,6 +169,7 @@ while True:
                                         print(f'Nome do Membro',gestao_nome,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc ==2:
                                         gestao_usu = input('Novo Usuário: ')
                                         up = 'update gestao set gestao_usu = %s where gestao_id = %s'
@@ -155,6 +180,7 @@ while True:
                                         print(f'Usuário do Membro',gestao_usu,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 3:
                                         gestao_senha = input('Nova Senha: ')
                                         up = 'update gestao set gestao_senha = %s where gestao_id = %s'
@@ -165,6 +191,7 @@ while True:
                                         print(f'Senha do Membro',gestao_senha,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 4:
                                         gestao_email = input('Novo Email: ')
                                         up = 'update gestao set gestao_email = %s where gestao_id = %s'
@@ -175,6 +202,7 @@ while True:
                                         print(f'Email do Membro',gestao_email,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 5:
                                         gestao_cargo = input('Novo Cargo: ')
                                         up = 'update gestao set gestao_cargo = %s where gestao_id = %s'
@@ -185,6 +213,7 @@ while True:
                                         print(f'Cargo do Membro',gestao_cargo,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 6:
                                         gestao_status = input('Novo Status: ')
                                         up = 'update gestao set gestao_status = %s where gestao_id = %s'
@@ -195,20 +224,28 @@ while True:
                                         print(f'Status do Membro',gestao_status,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Nenhuma Opção Selecionada')
                                         input('Clique enter para voltar ao menu... ')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('                                 ')
                                 print('Esse Id não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere invalido ou Nenhuma Opção selecionada')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '4':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Membro da Gestão--')
                         print('                                 ')
                         cursor.execute("SELECT * FROM gestao;")
@@ -232,13 +269,19 @@ while True:
                             else:
                                 print('Esse ID não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere invalido')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '5':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute("SELECT * FROM aluno;")
                         resultados = cursor.fetchall()
                         cabecalhos=('RA', 'NOME', 'USUÁRIO', 'SENHA', 'NASCIMENTO', 'EMAIL', 'TELEFONE', 'STATUS', 'ID TURMA')
@@ -246,8 +289,13 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '6':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('SELECT aluno_ra, aluno_nome, turma_id, turma_sala, turma_periodo, disciplina_nome from aluno inner join turma on turma_id = turma_iid inner join disciplina on disciplina_iid = disciplina_id')
                         resultados = cursor.fetchall()
                         cabecalhos= ('RA', 'NOME', 'ID TURMA', 'SALA', 'PERÍODO', 'MATÉRIA')
@@ -255,16 +303,26 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '7':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('select aluno_ra, aluno_nome, nota_valor, nota_frequencia, disciplina_nome from nota left join aluno on nota_rra = aluno_ra left join disciplina on disciplina_iid = disciplina_id')
                         resultados = cursor.fetchall()
                         cabecalhos=('RA ALUNO', 'NOME ALUNO', 'NOTA', 'FREQUÊNCIA', 'DISCIPLINA',)
                         print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '8':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('--Adicionar novo aluno--')
                         print('                                 ')
                         aluno_nome = input('Entre com o Nome do Aluno:').strip()
@@ -277,6 +335,7 @@ while True:
                         if aluno_nome == '' or aluno_usu == '' or aluno_senha == '' or data_nascimento == '' or aluno_email == '' or aluno_telefone == '' or aluno_status == '':
                             print('Nenhuma inserção de dados pode ficar vázio')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         else:    
                             cursor.execute("SELECT turma_id, turma_sala, turma_periodo, disciplina_nome from turma inner join disciplina on disciplina_id = disciplina_iid")
                             resultados = cursor.fetchall()
@@ -298,16 +357,23 @@ while True:
                                     print(f'Novo Aluno',aluno_nome,'inserido com sucesso!')
                                     print('                                 ')
                                     input('Pressione enter para voltar ao menu de opções...')
+                                    os.system('cls' if os.name == 'nt' else 'clear')
                                 else:
                                     print('Esse ID não existe')
                                     input('Pressione enter para voltar ao menu de opções...')
+                                    os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('                                 ')
                                 print('Caractere invalido')
                                 print('                                 ')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                     elif op =='9':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Alunos para alteração--')
                         print('                                 ')
                         cursor.execute("SELECT * FROM aluno;")
@@ -347,6 +413,7 @@ while True:
                                         print(f'Nome do Aluno',aluno_nome,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc ==2:
                                         aluno_usu = input('Novo Usuário: ')
                                         up = 'update aluno set aluno_usu = %s where aluno_ra = %s'
@@ -357,6 +424,7 @@ while True:
                                         print(f'Usuário do Aluno',aluno_usu,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 3:
                                         aluno_senha = input('Nova Senha: ')
                                         up = 'update aluno set aluno_senha = %s where aluno_ra = %s'
@@ -367,6 +435,7 @@ while True:
                                         print(f'Senha do Aluno',aluno_senha,'Alterada com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 4:
                                         data_nascimento = input('Nova Data de Nascimento: ')
                                         up = 'update aluno set data_nascimento = %s where aluno_ra = %s'
@@ -377,6 +446,7 @@ while True:
                                         print(f'Data de Nascimento do Aluno',data_nascimento,'Alterada com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 5:
                                         aluno_email = input('Novo email: ')
                                         up = 'update aluno set aluno_email = %s where aluno_ra = %s'
@@ -386,6 +456,7 @@ while True:
                                         print('                                 ')
                                         print(f'Email do Aluno',aluno_email,'Alterado com sucesso!')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 6:
                                         aluno_telefone = input('Novo Telefone: ')
                                         up = 'update aluno set aluno_telefone = %s where aluno_ra = %s'
@@ -396,6 +467,7 @@ while True:
                                         print(f'Telefone do Aluno',aluno_telefone,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 7:
                                         aluno_status = input('Novo Status: ')
                                         up = 'update aluno set aluno_status =%s where aluno_ra = %s'
@@ -406,6 +478,7 @@ while True:
                                         print(f'Status do aluno',aluno_status,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 8:
                                         print('--Consultar Turmas--')
                                         print('                                 ')
@@ -424,18 +497,26 @@ while True:
                                         print(f'Turma do aluno',turma_iid,'Alterada com sucesso')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Caractere invalido ou Nenhuma Opção selecionada')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Esse RA não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('Caractere invalido ou Nenhuma Opção selecionada')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op =='10':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Alunos para Deletar--')
                         print('                                 ')
                         cursor.execute("SELECT * FROM aluno;")
@@ -456,16 +537,24 @@ while True:
                                 conexao.commit()
                                 print('Aluno Deletado com Sucesso!')
                                 print('                                 ')
+                                input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Esse ID não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere invalido')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '11':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute("SELECT * FROM disciplina;")
                         resultados = cursor.fetchall()
                         cabecalhos=('ID', 'NOME', 'CARGA HORÁRIA')
@@ -473,8 +562,13 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '12':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute("SELECT * FROM turma;")
                         resultados = cursor.fetchall()
                         cabecalhos=('ID', 'PERÍODO', 'SALA', 'STATUS', 'DISCIPLINA ID')
@@ -482,8 +576,13 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '13':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute("SELECT * from professor;")
                         resultados = cursor.fetchall()
                         cabecalhos=('ID', 'NOME', 'USUÁRIO', 'SENHA', 'EMAIL')
@@ -491,8 +590,13 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '14':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('SELECT professor_nome, atribuicao_nome FROM professor left JOIN professor_atribuicao ON professor_id = professor_iid left JOIN atribuicao ON atribuicao_id = atribuicao_iid')
                         resultados = cursor.fetchall()
                         cabecalhos =('Professor Nome', 'Atribuição de Matéria')
@@ -500,8 +604,13 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '15':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('SELECT professor_id, professor_nome, turma_id, turma_sala, turma_periodo, disciplina_nome from professor left join professor_turma on professor_id = professor_iid left join turma on turma_id = turma_iid left join disciplina on disciplina_iid = disciplina_id')
                         resultados = cursor.fetchall()
                         cabecalhos= ('RA', 'NOME', 'ID TURMA', 'SALA', 'PERÍODO', 'MATÉRIA')
@@ -509,7 +618,12 @@ while True:
                         print(tabulate(resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '16':
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('--Adicionar novo professor--')
                         print('                                 ')
                         professor_nome = input('Entre com o Nome do Professor:').strip()
@@ -519,6 +633,7 @@ while True:
                         if professor_nome == '' or professor_usu == '' or professor_senha == '' or professor_email == '' :
                             print('Nenhuma inserção de dados pode ficar vázio')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             comando = 'insert into professor (professor_nome, professor_usu, professor_senha, professor_email) values (%s, %s, %s, %s)'
                             valores = (professor_nome, professor_usu, professor_senha, professor_email)
@@ -528,8 +643,13 @@ while True:
                             print(f'Membro',professor_nome,'inserido com sucesso!')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op =='17':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('--Consultar Professor e Matérias--')
                         print('                                 ')
                         cursor.execute('select professor_id, professor_nome, atribuicao_id, atribuicao_nome from professor left join professor_atribuicao on professor_id = professor_iid left join atribuicao on atribuicao_iid = atribuicao_id')
@@ -569,10 +689,12 @@ while True:
                                         print('Atribuição concluída: Português')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Português')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '2':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 2)
@@ -582,10 +704,12 @@ while True:
                                         print('Atribuição concluída: História')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a História')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '3':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 3)
@@ -595,10 +719,12 @@ while True:
                                         print('Atribuição concluída: Matemática')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Matemática')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '4':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 4)
@@ -608,10 +734,12 @@ while True:
                                         print('Atribuição concluída: Literatura')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Literatura')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '5':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 5)
@@ -621,10 +749,12 @@ while True:
                                         print('Atribuição concluída: Física')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Física')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '6':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 6)
@@ -634,10 +764,12 @@ while True:
                                         print('Atribuição concluída: Sociologia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Sociologia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '7':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 7)
@@ -647,10 +779,12 @@ while True:
                                         print('Atribuição concluída: Filosofia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Filosofia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '8':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 8)
@@ -660,10 +794,12 @@ while True:
                                         print('Atribuição concluída: Geografia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Geografia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '9':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 9)
@@ -673,10 +809,12 @@ while True:
                                         print('Atribuição concluída: Biologia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Biologia')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '10':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 10)
@@ -686,10 +824,12 @@ while True:
                                         print('Atribuição concluída: Química')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Química')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '11':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 11)
@@ -699,10 +839,12 @@ while True:
                                         print('Atribuição concluída: Inglês')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Inglês')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '12':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 12)
@@ -712,10 +854,12 @@ while True:
                                         print('Atribuição concluída: Espanhol')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Espanhol')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 elif opc == '13':
                                     up = 'insert ignore into professor_atribuicao (professor_iid, atribuicao_iid) values (%s, %s)'
                                     valores = (professor_id, 13)
@@ -725,22 +869,31 @@ while True:
                                         print('Atribuição concluída: Geopolítica')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse professor já está atribuído a Geopolítica')
                                         print('                                  ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 else:
                                     print('Nenhuma Opção Selecionada')
                                     input('Clique enter para voltar ao menu... ')
+                                    os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Esse ID não existe')
-                                input('Pressione enter para voltar ao menu de opções...')           
+                                input('Pressione enter para voltar ao menu de opções...')  
+                                os.system('cls' if os.name == 'nt' else 'clear')         
                         else:
                             print('Caractere invalido')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '18':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('--Consultar Professor e Turmas que já estão Atribuidos--')
                         print('                                 ')
                         cursor.execute('select professor_id, professor_nome, turma_id, turma_sala, turma_periodo, disciplina_nome from professor left join professor_turma on professor_id = professor_iid left join turma on turma_iid = turma_id left join disciplina on disciplina_iid = disciplina_id')
@@ -796,10 +949,12 @@ while True:
                                             print('Atribuição concluída: Estudos Avançados de Língua Portuguesa')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Estudos Avançados de Língua Portuguesa')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 2:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 2)
@@ -809,10 +964,12 @@ while True:
                                             print('Atribuição concluída: Fundamentos de História Geral')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Fundamentos de História Geral')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 3:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 3)
@@ -822,10 +979,12 @@ while True:
                                             print('Atribuição concluída: Tópicos de Matemática Aplicada')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Tópicos de Matemática Aplicada')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 4:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 4)
@@ -835,10 +994,12 @@ while True:
                                             print('Atribuição concluída: Análise Literária e Produção Textual')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Análise Literária e Produção Textual')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 5:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 5)
@@ -848,10 +1009,12 @@ while True:
                                             print('Atribuição concluída: Princípios de Física Experimental')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Princípios de Física Experimental')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 6:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 6)
@@ -861,10 +1024,12 @@ while True:
                                             print('Atribuição concluída: Teorias Sociológicas Contemporâneas')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Teorias Sociológicas Contemporâneas')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 7:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 7)
@@ -874,10 +1039,12 @@ while True:
                                             print('Atribuição concluída: Introdução ao Pensamento Filosófico')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Introdução ao Pensamento Filosófico')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 8:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 8)
@@ -887,10 +1054,12 @@ while True:
                                             print('Atribuição concluída: Estudos Geográficos e Ambientais')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Estudos Geográficos e Ambientais')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 9:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 9)
@@ -900,10 +1069,12 @@ while True:
                                             print('Atribuição concluída: Biologia Geral e Aplicada')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Biologia Geral e Aplicada')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 10:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 10)
@@ -913,10 +1084,12 @@ while True:
                                             print('Atribuição concluída: Fundamentos de Química Experimental')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Fundamentos de Química Experimental')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 11:
                                         up = 'insert ignore into professor_turma (professor_iid, turma_iid) values (%s, %s)'
                                         valores = (professor_id, 11)
@@ -926,19 +1099,27 @@ while True:
                                             print('Atribuição concluída: Comunicação e Estruturas da Língua Inglesa')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             print('Esse professor já está atribuído a Comunicação e Estruturas da Língua Inglesa')
                                             print('                                  ')
                                             input('Pressione enter para voltar ao menu de opções...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Esse ID não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere Invalido. Digite apenas numeros')
-                            input('Pressione enter para voltar ao menu de opções...')               
+                            input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')               
                     elif op == '19':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Professores para alteração--')
                         print('                                 ')
                         cursor.execute("SELECT * from professor;")
@@ -974,6 +1155,7 @@ while True:
                                         print(f'Nome do Professor',professor_nome,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc ==2:
                                         professor_usu = input('Novo Usuário: ')
                                         up = 'update professor set professor_usu = %s where professor_id = %s'
@@ -984,6 +1166,7 @@ while True:
                                         print(f'Usuário do Professor',professor_usu,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 3:
                                         professor_senha = input('Nova Senha: ')
                                         up = 'update professor set professor_senha = %s where professor_id = %s'
@@ -994,6 +1177,7 @@ while True:
                                         print(f'Senha do Professor',professor_senha,'Alterada com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                     elif opc == 4:
                                         professor_email = input('Novo Email: ')
                                         up = 'update professor set professor_email = %s where professor_id = %s'
@@ -1004,20 +1188,28 @@ while True:
                                         print(f'Email do Professor',professor_email,'Alterado com sucesso!')
                                         print('                                 ')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                                 else:
                                     print('                                 ')
                                     print('Nenhuma Opção selecionada')
                                     print('                                 ')
                                     input('Pressione enter para voltar ao menu de opções...')
+                                    os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Esse ID não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere Invalido. Digite apenas numeros')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '20':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Professor--')
                         print('                                 ')
                         cursor.execute('select professor_nome, professor_id from professor;')
@@ -1039,16 +1231,23 @@ while True:
                                 print('Professor Deletado com Sucessso!')
                                 print('                                 ')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Esse ID não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere invalido')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op =='21':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Atribuição de Matérias dos Professores--')
                         print('                                 ')
                         cursor.execute('select professor_id, professor_nome, atribuicao_id, atribuicao_nome from professor left join professor_atribuicao on professor_id = professor_iid left join atribuicao on atribuicao_iid = atribuicao_id')
@@ -1076,16 +1275,23 @@ while True:
                                 print('Atribuição Deletada com Sucessso!')
                                 print('                                 ')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Professor, Matéria ou Relação não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere invalido')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '22':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print ('--Consultar Atribuição de Turma dos Professores--')
                         print('                                 ')
                         cursor.execute('select professor_id, professor_nome, turma_id, turma_sala, disciplina_nome from professor left join professor_turma on professor_id = professor_iid left join turma on turma_iid = turma_id left join disciplina on disciplina_iid = disciplina_id ')
@@ -1113,35 +1319,53 @@ while True:
                                 print('Atribuição de Turma Deletada com Sucessso!')
                                 print('                                 ')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('Professor, Turma ou Relação não existe')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         else:
                             print('                                 ')
                             print('Caractere invalido')
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '23':
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         input('Clique enter para voltar ao menu...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         break
                     else:
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('Nenhuma Opção Selecionada')
                         input('Clique enter para voltar ao menu... ')
+                        os.system('cls' if os.name == 'nt' else 'clear')
             else:
+                largura = os.get_terminal_size().columns
+                print('='*largura)
                 print('                                 ')
                 print('Acesso Negado')
                 input('Pressione enter para voltar ao menu...')
+                os.system('cls' if os.name == 'nt' else 'clear')
     elif opcao == '2':
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print('='*60)
+        print('--Sistema do Professor--'.center(60))
+        print('='*60)
         print('                                 ')
-        print('--Sistema do Professor--')
-        print('                                 ')
-        professor_usu= input('Digite seu Usuário: ').strip()
-        professor_senha=getpass.getpass('Digite sua senha: ').strip()
+        professor_usu= input('👤 Digite seu Usuário: ').strip()
+        professor_senha=getpass.getpass('🔒 Digite sua senha: ').strip()
 
         comando= 'select * from professor where professor_usu = %s and professor_senha = %s'
         if professor_usu == '' or professor_senha == '':
             print('Nenhuma inserção de dados pode ficar vázio')
             input('Pressione enter para voltar ao menu de opções...')
+            os.system('cls' if os.name == 'nt' else 'clear')
         else:
             cursor.execute(comando, (professor_usu, professor_senha))
 
@@ -1149,9 +1373,15 @@ while True:
 
             if resultado:
                     while True:
-                        print('Acesso Concedido')
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
                         print('                                 ')
+                        print('Acesso Concedido✅')
+                        print('                                 ')
+                        print('='*60)
                         print('--Selecione uma Opção--')
+                        print('='*60)
                         print('                                 ')
                         print('1-Consultar Minha Turma')
                         print('2-Consultar Minha Disciplina')
@@ -1162,31 +1392,50 @@ while True:
                         print('                                 ')
                         op = input('Opção: ')
                         if op == '1':
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             from tabulate import tabulate
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             cursor.execute('select professor_id, professor_nome, turma_iid, turma_periodo, turma_sala, disciplina_nome from professor left join professor_turma on professor_id = professor_iid left join turma on turma_iid = turma_id left join disciplina on disciplina_iid = disciplina_id where professor_usu = %s',(professor_usu,))
                             resultados = cursor.fetchall()
                             cabecalhos = ('ID PROFESSOR', 'NOME', 'ID DA TURMA', 'PERIODO', 'SALA', 'MATÉRIA')
                             print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         elif op == '2':
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             from tabulate import tabulate
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             cursor.execute('select professor_nome, atribuicao_nome from professor left join professor_atribuicao on professor_iid = professor_id left join atribuicao on atribuicao_iid = atribuicao_id where professor_usu = %s',(professor_usu,))
                             resultados = cursor.fetchall()
                             cabecalhos=('NOME','DISCIPLINA',)
                             print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         elif op == '3':
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             from tabulate import tabulate
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             cursor.execute('select aluno_ra, aluno_nome, turma_id, turma_sala, turma_periodo, disciplina_nome from professor inner join professor_turma on professor.professor_id = professor_turma.professor_iid inner join turma on professor_turma.turma_iid = turma.turma_id inner join aluno on aluno.turma_iid = turma.turma_id inner join disciplina on turma.disciplina_iid = disciplina.disciplina_id where professor_usu = %s',(professor_usu,))
                             resultados = cursor.fetchall()
                             cabecalhos=('RA ALUNO','NOME ALUNO','ID SALA','SALA','TURNO','DISCIPLINA',)
                             print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         elif op =='4':
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             from tabulate import tabulate
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             print('--Consulta da Nota dos alunos--')
                             print('')
                             cursor.execute('select aluno_ra, aluno_nome, nota_valor, nota_frequencia from professor left join professor_turma on professor.professor_id = professor_turma.professor_iid left join turma on professor_turma.turma_iid = turma.turma_id left join aluno on aluno.turma_iid = turma.turma_id left join nota on nota_rra = aluno_ra where professor_usu = %s',(professor_usu,))
@@ -1195,8 +1444,13 @@ while True:
                             print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                             print('                                 ')
                             input('Pressione enter para voltar ao menu de opções...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                         elif op =='5':
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             from tabulate import tabulate
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             print('--Consulta dos alunos--')
                             print('')
                             cursor.execute('select aluno_ra, aluno_nome from professor left join professor_turma on professor.professor_id = professor_turma.professor_iid left join turma on professor_turma.turma_iid = turma.turma_id left join aluno on aluno.turma_iid = turma.turma_id where professor_usu = %s',(professor_usu,))
@@ -1212,6 +1466,7 @@ while True:
                                 if not permitido:
                                     print("Acesso negado: aluno não pertence à sua turma")
                                     input('Pressione enter para voltar ao menu de opções...')
+                                    os.system('cls' if os.name == 'nt' else 'clear')
                                 else:
                                     cursor.execute('SELECT COUNT(*) FROM nota WHERE nota_rra = %s',(nota_rra,))
                                     existe = cursor.fetchone()[0]
@@ -1228,6 +1483,7 @@ while True:
                                         elif not nota1.replace('.','',1).isdigit() or not nota2.replace('.','',1).isdigit() or not nota3.replace('.','',1).isdigit() or not nota4.replace('.','',1).isdigit() or not frequencia.isdigit() :
                                             print('As Notas devem conter apenas números (1 a 10)')
                                             input('Pressione enter para voltar ao menu...')
+                                            os.system('cls' if os.name == 'nt' else 'clear')
                                         else:
                                             nota1 = float(nota1) 
                                             nota2 = float(nota2)
@@ -1244,9 +1500,11 @@ while True:
                                                 if nota_valor == '':
                                                     print('Nenhuma inserção de dados pode ficar vázio')
                                                     input('Pressione enter para voltar ao menu de opções...')
+                                                    os.system('cls' if os.name == 'nt' else 'clear')
                                                 elif not nota_valor.replace('.','',1).isdigit():
                                                     print('A Nota deve conter apenas números (1 a 10)')
                                                     input('Pressione enter para voltar ao menu...')
+                                                    os.system('cls' if os.name == 'nt' else 'clear')
                                                 else:
                                                     nota_valor = float(nota_valor)
                                                     if 0<= nota_valor <=10:
@@ -1266,53 +1524,80 @@ while True:
                                                         print(f'Frequência',nota_frequencia,'Alterado/Adicionada com sucesso!')
                                                         print('                                 ')
                                                         input('Pressione enter para voltar ao menu de opções...')
+                                                        os.system('cls' if os.name == 'nt' else 'clear')
                                                     else:
                                                         print('Nota deve estar entre 0 e 10')
                                                         input('Pressione enter para voltar ao menu de opções...')
+                                                        os.system('cls' if os.name == 'nt' else 'clear')
                                             else:
                                                 print('Nota deve estar entre 0 e 10')
                                                 print('Frequência deve estar entre 0 a 100')
                                                 input('Pressione enter para voltar ao menu de opções...')
+                                                os.system('cls' if os.name == 'nt' else 'clear')
                                     else:
                                         print('Esse ID não existe')
                                         input('Pressione enter para voltar ao menu de opções...')
+                                        os.system('cls' if os.name == 'nt' else 'clear')
                             else:
                                 print('                                 ')
                                 print('Caractere Invalido. Digite apenas numeros')
                                 input('Pressione enter para voltar ao menu de opções...')
+                                os.system('cls' if os.name == 'nt' else 'clear')
                         elif op == '6':
+                            os.system('cls' if os.name == 'nt' else 'clear')
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             input('Clique enter para voltar ao menu...')
+                            os.system('cls' if os.name == 'nt' else 'clear')
                             break
                         else:
+                            largura = os.get_terminal_size().columns
+                            print('='*largura)
+                            print('                                 ')
                             print('Nenhuma Opção Selecionada')
                             input('Clique enter para voltar ao menu... ')
+                            os.system('cls' if os.name == 'nt' else 'clear')
             else:
+                largura = os.get_terminal_size().columns
+                print('='*largura)
                 print('                                 ')
                 print('Acesso Negado')
                 input('Pressione enter para voltar ao menu...')
+                os.system('cls' if os.name == 'nt' else 'clear')
+
     elif opcao =='3':
-        print('                                 ')
-        print('--Sistema do Aluno--')
-        print('                                 ')
-        aluno_ra= input('Digite seu RA: ').strip()
-        aluno_senha=getpass.getpass('Digite sua senha: ').strip()
+        os.system('cls' if os.name == 'nt' else 'clear')
+        print('='*60)
+        print('--Sistema do Aluno--'.center(60))
+        print('='*60)
+        aluno_ra= input('👤 Digite seu RA: ').strip()
+        aluno_senha=getpass.getpass('🔒 Digite sua senha: ').strip()
 
         comando= 'select * from aluno where aluno_ra = %s and aluno_senha = %s'
         if aluno_ra == '' or aluno_senha == '':
             print('Nenhuma inserção de dados pode ficar vázio')
             input('Pressione enter para voltar ao menu de opções...')
+            os.system('cls' if os.name == 'nt' else 'clear')
         elif not aluno_ra.isdigit():
             print('O RA deve conter apenas números')
             input('Pressione enter para voltar ao menu...')
+            os.system('cls' if os.name == 'nt' else 'clear')
         else:
             aluno_ra = int(aluno_ra)
             cursor.execute(comando, (aluno_ra, aluno_senha))
             resultado = cursor.fetchone()
             if resultado:
                 while True:
-                    print('Acesso Concedido')
+                    os.system('cls' if os.name == 'nt' else 'clear')
+                    largura = os.get_terminal_size().columns
+                    print('='*largura)
                     print('                                 ')
-                    print('--Selecione uma Opção--')
+                    print('Acesso Concedido✅')
+                    print('                                 ')
+                    print('='*60)
+                    print('--Selecione uma Opção--'.center(60))
+                    print('='*60)
                     print('                                 ')
                     print('1-Consultar Minha Turma')
                     print('2-Consultar Minha Disciplina')
@@ -1321,45 +1606,81 @@ while True:
                     print('                                 ')
                     op = input('Opção: ')
                     if op == '1':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('select aluno_ra, aluno_nome, turma_iid, turma_periodo, turma_sala from aluno inner join turma on turma_iid = turma_id where aluno_ra = %s',(aluno_ra,))
                         resultados = cursor.fetchall()
                         cabecalhos = ('ALUNO RA', 'NOME', 'ID DA TURMA', 'PERIODO', 'SALA')
                         print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '2':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('select disciplina_nome from turma left join disciplina on disciplina_iid = disciplina_id left join aluno on turma_iid = turma_id where aluno_ra = %s',(aluno_ra,))
                         resultados = cursor.fetchall()
                         cabecalhos=('DISCIPLINA',)
                         print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '3':
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         from tabulate import tabulate
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         cursor.execute('select aluno_ra, aluno_nome, nota_valor, nota_frequencia, disciplina_nome from nota left join aluno on nota_rra = aluno_ra left join disciplina on disciplina_iid = disciplina_id where aluno_ra = %s',(aluno_ra,))
                         resultados = cursor.fetchall()
                         cabecalhos=('RA ALUNO', 'NOME ALUNO', 'NOTA', 'FREQUÊNCIA', 'DISCIPLINA',)
                         print(tabulate (resultados, headers=cabecalhos, tablefmt='grid'))
                         print('                                 ')
                         input('Pressione enter para voltar ao menu de opções...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                     elif op == '4':
+                        os.system('cls' if os.name == 'nt' else 'clear')
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         input('Clique enter para voltar ao menu...')
+                        os.system('cls' if os.name == 'nt' else 'clear')
                         break
                     else:
+                        largura = os.get_terminal_size().columns
+                        print('='*largura)
+                        print('                                 ')
                         print('Nenhuma Opção Selecionada')
                         input('Clique enter para voltar ao menu... ')
+                        os.system('cls' if os.name == 'nt' else 'clear')
             else:
+                largura = os.get_terminal_size().columns
+                print('='*largura)
                 print('                                 ')
                 print('Acesso Negado')
                 input('Pressione enter para voltar ao menu...')
+                os.system('cls' if os.name == 'nt' else 'clear')
     elif opcao == '4':
+        os.system('cls' if os.name == 'nt' else 'clear')
+        largura = os.get_terminal_size().columns
+        print('='*largura)
+        print('                                 ')
         input('Clique enter para encerrar...')
+        os.system('cls' if os.name == 'nt' else 'clear')
         break
     else:
+        largura = os.get_terminal_size().columns
+        print('='*largura)
+        print('                                 ')
         print('Opção Invalida')
         input('Clique enter para voltar ao menu...')
+        os.system('cls' if os.name == 'nt' else 'clear')
 
 cursor.close()
 conexao.close()
